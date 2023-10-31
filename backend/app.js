@@ -1,12 +1,11 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-
-
-
+const morgan = require('morgan');
+const mongoose = require('mongoose');
 // Middleware
 app.use(bodyParser.json());  
-
+app.use(morgan('tiny'));
 
 require('dotenv/config');
 
@@ -27,6 +26,9 @@ app.post(`${api}/productos`, (req, res) => {
     console.log(newProducto);
     res.send(newProducto)
 });
+
+mongoose.connect()
+
 
 app.listen(3000, () => {
     console.log('El server esta corriendo en el puerto 3000');
