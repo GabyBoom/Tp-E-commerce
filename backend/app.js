@@ -5,20 +5,26 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 
 require('dotenv/config');
-const api = process.env.API_URL;
-
-
-const productosRouter = require('./routers/productos')
-
 
 // Middleware
 app.use(bodyParser.json());  
 app.use(morgan('tiny'));
 
 
-//Routers
-app.use(`${api}/productos`, productosRouter)
+// Rutas
+const categoriasRutas = require('./routers/categorias');
+const productosRutas = require('./routers/productos');
+const usuariosRutas = require('./routers/usuarios');
+const ordenesRutas = require('./routers/ordenes');
 
+const api = process.env.API_URL;
+
+app.use(`${api}/categorias`, categoriasRutas);
+app.use(`${api}/productos`, productosRutas);
+app.use(`${api}/usuarios`, usuariosRutas);
+app.use(`${api}/ordenes`, ordenesRutas);
+
+// Database
 mongoose.connect(process.env.CONNECTION_STRING, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
