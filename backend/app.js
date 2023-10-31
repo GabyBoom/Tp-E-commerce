@@ -3,29 +3,21 @@ const app = express();
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+
+require('dotenv/config');
+const api = process.env.API_URL;
+
+
+const productosRouter = require('./routers/productos')
+
+
 // Middleware
 app.use(bodyParser.json());  
 app.use(morgan('tiny'));
 
-require('dotenv/config');
 
-const api = process.env.API_URL;
-
-app.get(`${api}/productos`, (req, res) => {
-    const producto = {
-        id: 1,
-        name: 'Camisuli',
-        image: 'some_url',
-    }
-    
-    res.send(producto);
-});
-
-app.post(`${api}/productos`, (req, res) => {
-    const newProducto = req.body;
-    console.log(newProducto);
-    res.send(newProducto)
-});
+//Routers
+app.use(`${api}/productos`, productosRouter)
 
 mongoose.connect(process.env.CONNECTION_STRING, {
     useNewUrlParser: true,
