@@ -1,4 +1,4 @@
-const {Usuario} = require('../models/producto');
+const {Usuario} = require('../models/usuario');
 const express = require('express');
 const router = express.Router();
 

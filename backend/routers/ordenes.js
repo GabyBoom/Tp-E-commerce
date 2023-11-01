@@ -1,4 +1,4 @@
-const {Orden} = require('../models/producto');
+const {Orden} = require('../models/orden');
 const express = require('express');
 const router = express.Router();
 
