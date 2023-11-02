@@ -18,14 +18,12 @@ app.use(morgan('tiny'));
 // Rutas
 const categoriasRutas = require('./routers/categorias');
 const productosRutas = require('./routers/productos');
-const usuariosRutas = require('./routers/usuarios');
 const ordenesRutas = require('./routers/ordenes');
 
 const api = process.env.API_URL;
 
 app.use(`${api}/categorias`, categoriasRutas);
 app.use(`${api}/productos`, productosRutas);
-app.use(`${api}/usuarios`, usuariosRutas);
 app.use(`${api}/ordenes`, ordenesRutas);
 
 // Database

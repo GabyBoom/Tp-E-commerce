@@ -15,7 +15,8 @@ const productoSchema = mongoose.Schema({
     },
     category: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Categoria'
+        ref: 'Categoria',
+        required: true
     },
     countInStock: {
         type: Number,
@@ -24,6 +25,13 @@ const productoSchema = mongoose.Schema({
         max: 255
     }
 })
+productoSchema.virtual('id').get(function() {
+    return this._id.toHexString();
+});
+
+productoSchema.set('toJSON', {
+    virtuals: true
+});
 
 const Producto = mongoose.model('Producto', productoSchema);
 
