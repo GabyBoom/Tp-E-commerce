@@ -27,7 +27,7 @@ router.get('/:id', async (req, res) => {
 
 
 router.post('/', async (req, res) => {
-   const ordenProductosIds = Promise.all(req.body.ordenProductos.map(async ordenProducto => {
+   const ordenProductosIds = Promise.all(req.body.ordenProductos.map(async (ordenProducto) => {
         let nuevoOrdenProducto = new OrdenProducto({
             cantidad: ordenProducto.cantidad,
             producto: ordenProducto.producto
@@ -38,7 +38,6 @@ router.post('/', async (req, res) => {
         return nuevoOrdenProducto._id;
    }))
     const ordenProductosIdsResolved = await ordenProductosIds;
-   
 
     let orden = new Orden({
         ordenProductos: ordenProductosIdsResolved,
@@ -59,4 +58,37 @@ router.post('/', async (req, res) => {
     res.send(orden);
 });
 
+router.put('/:id', async (req, res) => {
+    const orden = await Orden.findByIdAndUpdate(
+        req.params.id, 
+        {
+            estado: req.body.estado
+        },
+        { new: true }
+    );
+
+    if (!orden) {
+        return res.status(400).send('La orden no existe');
+    }
+    
+    res.send(orden);
+});
+
+router.delete('/:id', async (req, res) => {
+    try {
+        const orden = await Orden.findByIdAndRemove(req.params.id);
+        
+        if (!orden) {
+            return res.status(404).json({ success: false, message: 'La orden no existe' });
+        }
+        
+        await Promise.all(orden.ordenProductos.map(async (ordenProducto) => {
+            await OrdenProducto.findByIdAndRemove(ordenProducto);
+        }));
+        
+        return res.status(200).json({ success: true, message: 'La orden se ha eliminado' });
+    } catch (err) {
+        return res.status(400).json({ success: false, error: err });
+    }
+});
 module.exports = router;
