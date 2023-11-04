@@ -35,15 +35,9 @@ router.post(`/`, async (req, res) => {
     const producto = new Producto ({
         name: req.body.name,
         description: req.body.description,
-        richDescription: req.body.richDescription,
-        image: req.body.image,
-        brand: req.body.brand,
         price: req.body.price,
         category: req.body.category,
         countInStock: req.body.countInStock,
-        rating: req.body.rating,
-        numReviews: req.body.numReviews,
-        isFeatured: req.body.isFeatured,
     })
 
 
@@ -66,7 +60,6 @@ router.put('/:id', async (req, res) => {
         {
             name: req.body.name,
             description: req.body.description,
-            image: req.body.image,
             price: req.body.price,
             category: req.body.categoria,
             countInStock: req.body.countInStock

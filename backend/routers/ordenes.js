@@ -99,4 +99,30 @@ router.delete('/:id', async (req, res) => {
         return res.status(400).json({ success: false, error: err });
     }
 });
+
+router.delete('/:id/productos/:productoId', async (req, res) => {
+    try {
+        const orden = await Orden.findById(req.params.id);
+
+        if (!orden) {
+            return res.status(404).json({ success: false, message: 'La orden no existe' });
+        }
+
+        const producto = await OrdenProducto.findById(req.params.productoId);
+
+        if (!producto) {
+            return res.status(404).json({ success: false, message: 'El producto no existe' });
+        }
+
+        orden.ordenProductos = orden.ordenProductos.filter((ordenProducto) => ordenProducto.id !== producto.id);
+
+        await orden.save();
+
+        return res.status(200).json({ success: true, message: 'El producto se ha eliminado' });
+    } catch (err) {
+        return res.status(400).json({ success: false, error: err });
+    }
+});
+
+
 module.exports = router;
