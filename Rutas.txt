@@ -1,0 +1,16 @@
+	Rutas: 
+		Categorias: 
+			http://localhost:3000/api/v1/categorias/
+			{
+   			 "name": "Laptops",
+   			 "icon": "icon-laptop",
+   			 "color": "#8EACCD"
+			}
+		Productos:
+			http://localhost:3000/api/v1/productos
+			GET: http://localhost:3000/api/v1/productos?categorias=654291fa66768c6036c72fbb
+
+
+		Carrito: 
+		             http://localhost:3000/api/v1/ordenes/65440f9a0a269e8d7fc38097
+		             DELETE: http://localhost:3000/api/v1/ordenes/6544f47d241e5cdb4ae1f6e8/productos/6544f47c241e5cdb4ae1f6e4
