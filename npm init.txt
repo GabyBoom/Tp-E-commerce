@@ -1,0 +1,8 @@
+npm init
+npm install nodemon
+npm install bodyparser
+npm install express
+npm install dotenv
+npm install morgan
+npm install mongoose
+npm install cors
